@@ -70,6 +70,17 @@ Click into any text and type. Verified end to end: a sentence appended to a home
 | Change content source / site config | Repo write access (`fstab.yaml`) — this site is fstab-based and intentionally **not** registered in the `api.aem.live` config service. Do not complete the `tools.aem.live` "AEM Configuration Setup" wizard for this repo: it would move the site to the config service, where our tokens currently have no role. |
 | Local development | Clone of this repo + `npx @adobe/aem-cli up` (no credentials needed; content comes from the public preview). |
 
+## 8. New layout: Experience Workspace (tested 17 Sep 2026)
+
+The "New Authoring" toggle in the editor switches to the Experience Workspace layout. All flows above were re-tested there; the backend (DA source, admin APIs, permissions posture) is identical — only the UI changes.
+
+- **View modes**: a `Layout | Content | split` toggle. *Layout* renders the page with the site's real CSS as a directly editable WYSIWYG canvas; *Content* is the classic document view; split shows both, **live-synced** (typing in one updates the other instantly).
+- **Editing**: click into any text in either pane and type. Same autosave (~5–10 s, no Save button). Verified: a canvas edit landed in the DA source and, after Preview, on `.aem.page` and localhost.
+- **Toolbar**: formatting is a floating toolbar on selection (heading level, bold/italic/code, lists, table, link, image, comment) instead of the old left rail. The canvas labels which block you are inside (e.g. a `columns` chip).
+- **Links — behavior difference (verified)**: the Edit-link dialog **silently discards relative URLs** like `/page`; enter the full URL (e.g. `https://main--eds-da-demo--venkateshka-volkswagen.aem.page/page`). The delivery pipeline rewrites same-site absolute URLs back to relative links (`/page`) on preview/live, so this is safe and is the intended authoring convention.
+- **Preview/Publish**: consolidated under the **Send** button (top right) → Preview / Publish. Same two-stage behavior as classic; verified Preview propagation.
+- **New capabilities**: inline comments (speech-bubble tool) and an image-insert button in the floating toolbar; AI assistant surfaces (see aem.live Experience Workspace docs).
+
 ## Quick reference — author loop
 
 1. Edit at da.live (autosaves).
